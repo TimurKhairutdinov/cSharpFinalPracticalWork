@@ -16,9 +16,9 @@ else if (handInput.ToLower() == "no")
 }
 else while (handInput.ToLower() != "yes" || handInput.ToLower() != "no")
     {
-
         Console.WriteLine("Некорректный ввод, повторите!");
         handInput = Console.ReadLine();
+
         if (handInput.ToLower() == "yes" || handInput.ToLower() == "no")
         {
             if (handInput.ToLower() == "yes")
@@ -33,6 +33,7 @@ else while (handInput.ToLower() != "yes" || handInput.ToLower() != "no")
         }
     }
 
+// Переменные для условия handInputStatus = false
 int charRangeFrom = 0x030;
 int charRangeUp = 0x05A;
 
@@ -42,7 +43,7 @@ int countString = new Random().Next(1, 10);
 
 if (handInputStatus == false)
 {
-    Console.WriteLine("Создание массива строк.");
+    Console.WriteLine("Сформирован случайный массив строк.");
 
     string[] randomTextArray = new string[countString];
 
@@ -54,18 +55,17 @@ if (handInputStatus == false)
 
     string[] newText = StringSort(randomTextArray, qtyCharInput);
     PrintArray(newText);
-
-
 }
+
 else if (handInputStatus == true)
 {
     Console.WriteLine("Введите текст, а для разбития на отдельные ячейки массива используйте запятую (,) " +
     "Иначе весь текст попадет в одну ячейку массива!");
     string input = Console.ReadLine();
-    while (input == String.Empty)
+
+    if (input == String.Empty)
     {
         StrEmpt(input);
-        input = Console.ReadLine();
     }
 
     string[] text = InputString(input);
@@ -117,14 +117,15 @@ string[] InputString(string output)
     return numbers;
 }
 
-void StrEmpt(string str)
+string StrEmpt(string str)
 {
-    if (str == string.Empty)
+    while (str == string.Empty)
     {
         Console.WriteLine("Вы ничего не ввели, введите текст! ");
+        str = Console.ReadLine();
     }
+    return str;
 }
-
 
 void PrintArray(string[] array)
 {
@@ -160,6 +161,7 @@ int QtyStringLessQtyChar(string[] arr, int qty)
     }
     return result;
 }
+
 string[] StringSort(string[] arrStr, int qtyChar)
 {
     int size = QtyStringLessQtyChar(arrStr, qtyChar);
@@ -185,6 +187,7 @@ void FillArrayRndmTxt(string[] arr)
         arr[i] = tempText;
     }
 }
+
 
 string GetRndmTxt(int rangeSizeStringMax, int charRangeFrom, int charRangeUp)
 {
