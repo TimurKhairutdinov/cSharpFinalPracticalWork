@@ -153,7 +153,7 @@ int QtyStringLessQtyChar(string[] arr, int qty)
     for (int i = 0; i < arr.Length; i++)
     {
         string tempString = arr[i];
-        if (tempString.Length < qty)
+        if (tempString.Length <= qty)
         {
             result++;
         }
