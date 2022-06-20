@@ -168,7 +168,7 @@ string[] StringSort(string[] arrStr, int qtyChar)
     for (int i = 0; i < arrStr.Length; i++)
     {
         string tempString = arrStr[i];
-        if (tempString.Length < qtyChar)
+        if (tempString.Length <= qtyChar)
         {
             newArray[index] = tempString;
             index++;
