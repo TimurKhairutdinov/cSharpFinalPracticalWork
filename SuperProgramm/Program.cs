@@ -194,7 +194,6 @@ void FillArrayRndmTxt(string[] arr)
     }
 }
 
-
 string GetRndmTxt(int rangeSizeStringMax, int charRangeFrom, int charRangeUp)
 {
 
