@@ -38,22 +38,25 @@ int charRangeFrom = 0x030;
 int charRangeUp = 0x05A;
 
 int rangeSizeStringMax = 15;
-int countString = new Random().Next(1, 10);
+int countString = new Random().Next(3, 15);
 
 
 if (handInputStatus == false)
 {
-    Console.WriteLine("Сформирован случайный массив строк.");
+    Console.WriteLine("Сформирован случайный массив строк." +
+    "Запятая (,) в данном случае не является элементом строки, а служит для разделения элементов массива! ");
 
     string[] randomTextArray = new string[countString];
 
     FillArrayRndmTxt(randomTextArray);
     PrintArray(randomTextArray);
 
-    Console.WriteLine("Введите число, для сортировки строк содержащих меньше, чем это число символов.");
-    int qtyCharInput = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Введите число, для сортировки строк содержащих меньше, чем это число символов, или равно ему.");
+    string qtyCharInput = Console.ReadLine();
 
-    string[] newText = StringSort(randomTextArray, qtyCharInput);
+    int convertQtyChar = CheckCorrectInput(qtyCharInput);
+
+    string[] newText = StringSort(randomTextArray, convertQtyChar);
     PrintArray(newText);
 }
 
@@ -70,9 +73,12 @@ else if (handInputStatus == true)
 
     string[] text = InputString(input);
 
-    Console.WriteLine("Введите число, для сортировки строк содержащих меньше, чем это число символов.");
-    int qtyCharInput = Convert.ToInt32(Console.ReadLine());
-    string[] newText = StringSort(text, qtyCharInput);
+    Console.WriteLine("Введите число, для сортировки строк содержащих меньше, чем это число символов, или равно ему.");
+    string qtyCharInput = Console.ReadLine();
+
+    int convertQtyChar = CheckCorrectInput(qtyCharInput);
+
+    string[] newText = StringSort(text, convertQtyChar);
     PrintArray(newText);
 }
 
@@ -199,4 +205,32 @@ string GetRndmTxt(int rangeSizeStringMax, int charRangeFrom, int charRangeUp)
         tempString += (Char)new Random().Next(charRangeFrom, charRangeUp); // 0000—007F
     }
     return tempString;
+}
+
+bool CheckoForDigit(string inputText)
+{
+    bool digitStatus = true;
+    for (int i = 0; i < inputText.Length; i++)
+    {
+        if (Char.IsDigit(inputText[i]) == false)
+        {
+            digitStatus = false;
+            break;
+        }
+    }
+    return digitStatus;
+}
+
+int CheckCorrectInput(string qtyCharInput)
+{
+    bool checkDigit = CheckoForDigit(qtyCharInput);
+    while (checkDigit == false)
+    {
+        Console.WriteLine("Некорректный ввод, текст содержит что-то помимо цифр! " +
+        "Повторите ввод!");
+        qtyCharInput = Console.ReadLine();
+        checkDigit = CheckoForDigit(qtyCharInput);
+    }
+    int convertQtyChar = Convert.ToInt32(qtyCharInput);
+    return convertQtyChar;
 }
